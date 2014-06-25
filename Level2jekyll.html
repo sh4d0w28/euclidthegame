@@ -10,6 +10,85 @@ You unlocked a new tool: Constructing a midpoint!
 <a href="Level3.html">Go to level 3.</a>
 </p>
 
+<script>
+function ggbOnInit() {
+  ggbApplet.debug("ggbOnInit");
+  ggbApplet.registerAddListener("newObjectListener");
+}
+
+function newObjectListener(obj) {
+    if (ggbApplet.getObjectType(obj) == "segment" || ggbApplet.getObjectType(obj) == "circle") {
+ggbApplet.setColor(obj,255,234,132);
+}
+
+  // this functions can check all general objects
+  function checkobject(target, step) {
+    if (obj != "finished") {
+      var cmd = "finished = (" + obj + "== " + target + ")";
+      ggbApplet.debug(cmd);
+      ggbApplet.evalCommand(cmd);
+      finished = ggbApplet.getValueString("finished");
+      if (finished.indexOf("true") > -1) {
+        ggbApplet.setVisible(step, true);
+      }
+    }
+  }
+  // this functions check line segments
+  function checksegment(target, step) {
+    if (ggbApplet.getObjectType(obj) == "segment") {
+      //gives beginpoint and enpoint of object
+      var objectcmd = ggbApplet.getCommandString(obj);
+	  var openbracket = objectcmd.indexOf('[') + 1;
+	  var comma = objectcmd.indexOf(',');
+	  var closebracket = objectcmd.indexOf(']');
+	  var beginpointobject = objectcmd.substring(openbracket, comma);
+	  var endpointobject = objectcmd.substring(comma + 1, closebracket);
+      //gives beginpoint and endpoint of target
+      var targetcmd = ggbApplet.getCommandString(target); 
+	  var openbracket = targetcmd.indexOf('[') + 1;
+	  var comma = targetcmd.indexOf(',');
+	  var closebracket = targetcmd.indexOf(']');
+	  var beginpointtarget = targetcmd.substring(openbracket, comma);
+	  var endpointtarget = targetcmd.substring(comma + 1, closebracket);
+      //here it checks if endpoints of line segment are equal
+      if (obj != "finished") {
+        var cmd = "finished =((("+beginpointobject+"=="+beginpointtarget+")||("+beginpointobject+"=="+endpointtarget+"))&&(("+endpointobject+"=="+beginpointtarget+")||("+endpointobject+"=="+endpointtarget+")))";
+        ggbApplet.debug(cmd);
+        ggbApplet.evalCommand(cmd);
+        finished = ggbApplet.getValueString("finished");
+        if (finished.indexOf("true") > -1) {
+          ggbApplet.setVisible(step, true);
+        }
+      }
+    }
+  }
+   // this functions can check if line segment has right direction
+  function checksegmentdirection(target, step) {
+    if (ggbApplet.getObjectType(obj) == "segment") {
+    if (obj != "finished") {
+      var cmd = "finished = (("+obj+"(1)=="+target+"(1))&&("+obj+"(-1)=="+target+"(-1)))";
+      ggbApplet.debug(cmd);
+      ggbApplet.evalCommand(cmd);
+      finished = ggbApplet.getValueString("finished");
+      if (finished.indexOf("true") > -1) {
+        ggbApplet.setVisible(step, true);
+      }
+    }
+  }
+  }
+  //here you can check all objects 
+  checkobject("target1a", "step1");
+ checkobject("target1b", "step2");
+checkobject("endtarget","step3");
+
+  //which step are neccesary to complete level
+  if (ggbApplet.getVisible("step3")) {
+    ggbApplet.setVisible("complete", true);
+  document.getElementById("level").style.visibility="visible";
+  }
+}
+
+</script>
 <script type="text/javascript">
     /** is3D=is 3D applet using 3D view, AV=Algebra View, SV=Spreadsheet View, CV=CAS View, EV2=Graphics View 2, CP=Construction Protocol, PC=Probability Calculator, DA=Data Analysis, FI=Function Inspector, PV=Python, macro=Macro View */
     var views = {"is3D":false,"AV":false,"SV":false,"CV":false,"EV2":false,"CP":false,"PC":false,"DA":false,"FI":false,"PV":false,"macro":true};
@@ -23,7 +102,85 @@ You unlocked a new tool: Constructing a midpoint!
     }
 
 </script>
+<script>
+function ggbOnInit() {
+  ggbApplet.debug("ggbOnInit");
+  ggbApplet.registerAddListener("newObjectListener");
+}
 
+function newObjectListener(obj) {
+    if (ggbApplet.getObjectType(obj) == "segment" || ggbApplet.getObjectType(obj) == "circle") {
+ggbApplet.setColor(obj,255,234,132);
+}
+
+  // this functions can check all general objects
+  function checkobject(target, step) {
+    if (obj != "finished") {
+      var cmd = "finished = (" + obj + "== " + target + ")";
+      ggbApplet.debug(cmd);
+      ggbApplet.evalCommand(cmd);
+      finished = ggbApplet.getValueString("finished");
+      if (finished.indexOf("true") > -1) {
+        ggbApplet.setVisible(step, true);
+      }
+    }
+  }
+  // this functions check line segments
+  function checksegment(target, step) {
+    if (ggbApplet.getObjectType(obj) == "segment") {
+      //gives beginpoint and enpoint of object
+      var objectcmd = ggbApplet.getCommandString(obj);
+	  var openbracket = objectcmd.indexOf('[') + 1;
+	  var comma = objectcmd.indexOf(',');
+	  var closebracket = objectcmd.indexOf(']');
+	  var beginpointobject = objectcmd.substring(openbracket, comma);
+	  var endpointobject = objectcmd.substring(comma + 1, closebracket);
+      //gives beginpoint and endpoint of target
+      var targetcmd = ggbApplet.getCommandString(target); 
+	  var openbracket = targetcmd.indexOf('[') + 1;
+	  var comma = targetcmd.indexOf(',');
+	  var closebracket = targetcmd.indexOf(']');
+	  var beginpointtarget = targetcmd.substring(openbracket, comma);
+	  var endpointtarget = targetcmd.substring(comma + 1, closebracket);
+      //here it checks if endpoints of line segment are equal
+      if (obj != "finished") {
+        var cmd = "finished =((("+beginpointobject+"=="+beginpointtarget+")||("+beginpointobject+"=="+endpointtarget+"))&&(("+endpointobject+"=="+beginpointtarget+")||("+endpointobject+"=="+endpointtarget+")))";
+        ggbApplet.debug(cmd);
+        ggbApplet.evalCommand(cmd);
+        finished = ggbApplet.getValueString("finished");
+        if (finished.indexOf("true") > -1) {
+          ggbApplet.setVisible(step, true);
+        }
+      }
+    }
+  }
+   // this functions can check if line segment has right direction
+  function checksegmentdirection(target, step) {
+    if (ggbApplet.getObjectType(obj) == "segment") {
+    if (obj != "finished") {
+      var cmd = "finished = (("+obj+"(1)=="+target+"(1))&&("+obj+"(-1)=="+target+"(-1)))";
+      ggbApplet.debug(cmd);
+      ggbApplet.evalCommand(cmd);
+      finished = ggbApplet.getValueString("finished");
+      if (finished.indexOf("true") > -1) {
+        ggbApplet.setVisible(step, true);
+      }
+    }
+  }
+  }
+  //here you can check all objects 
+  checkobject("target1a", "step1");
+ checkobject("target1b", "step2");
+checkobject("endtarget","step3");
+
+  //which step are neccesary to complete level
+  if (ggbApplet.getVisible("step3")) {
+    ggbApplet.setVisible("complete", true);
+  document.getElementById("level").style.visibility="visible";
+  }
+}
+
+</script>
     <div style="display:block;min-width:485px;min-height:485px" id="applet_container">
     </div>
 
